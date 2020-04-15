@@ -2,21 +2,19 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
-import { BlogsContext } from '../contexts/blogsProvider';
+// import { BlogsContext } from '../contexts/blogsProvider';
+import { Context } from '../contexts/BlogContext';
 
 function BlogEntry(props) {
   const {id, title, navigation} = props;
-  const {blogs, setBlogs} = useContext(BlogsContext);
-  const deleteNow = () => {
-    setBlogs(blogs.filter(b => b.id !== id))
-  }
+  const {state, deleteBlogPost} = useContext(Context);
   return (
     <>
       <View style={styles.main}>
         <TouchableOpacity style={styles.titleClick} onPress={() => navigation.navigate("Blog", {id})}>
           <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={deleteNow}>
+        <TouchableOpacity onPress={() => deleteBlogPost({id})}>
           <View style={styles.action}>
             <MaterialCommunityIcons name="delete" style={styles.deleteIcon}/>
           </View>

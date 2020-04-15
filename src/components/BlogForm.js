@@ -1,25 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { TextInput, Button, View, Text, StyleSheet } from 'react-native';
 import useInputState from '../hooks/useInputState';
-import { BlogsContext } from '../contexts/blogsProvider';
+// import { BlogsContext } from '../contexts/blogsProvider';
 import { withNavigation } from 'react-navigation';
+import { Context } from '../contexts/BlogContext';
 
 function BlogForm(props) {
   const {id, title, content, navigation} = props;
   const [titleI, handleTitleChange] = useInputState(title);
   const [contentI, handleContentChange] = useInputState(content);
-  const {blogs, setBlogs} = useContext(BlogsContext);
+  const {state, addBlogPost, editBlogPost} = useContext(Context);
+  const callback = () => navigation.navigate("Home");
   const submit = () => {
     id ?
-    setBlogs(blogs.map(b => {
-      if(b.id === id){
-        return {id, title: titleI, content: contentI}
-      }
-      return b;
-    }))  
+    editBlogPost({id, title: titleI, content: contentI, callback})  
     :
-    setBlogs([...blogs, {id: Date.now().toString(), title: titleI, content: contentI}]);
-    navigation.navigate("Home")
+    addBlogPost({id: Date.now().toString(), title: titleI, content: contentI, callback});
   };
   return (
     <>

@@ -6,7 +6,8 @@ import NewBlog from './src/screens/NewBlog';
 import BlogScreen from './src/screens/BlogScreen';
 import { createAppContainer } from 'react-navigation';
 import EditBlog from './src/screens/EditBlog';
-import { BlogsProvider } from './src/contexts/blogsProvider';
+// import { BlogsProvider } from './src/contexts/blogsProvider';
+import { Provider } from './src/contexts/BlogContext';
 
 const navigator = createStackNavigator({
   Home: Home,
@@ -24,5 +25,5 @@ const navigator = createStackNavigator({
 const App = createAppContainer(navigator);
 
 export default () => {
-  return <BlogsProvider><App/></BlogsProvider>
+  return <Provider><App/></Provider>
 };

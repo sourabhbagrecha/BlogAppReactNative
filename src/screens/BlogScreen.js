@@ -2,18 +2,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Text } from 'react-native';
 import Blog from '../components/Blog';
 import { withNavigation } from 'react-navigation';
-import { BlogsContext } from '../contexts/blogsProvider';
+// import { BlogsContext } from '../contexts/blogsProvider';
+import { Context } from '../contexts/BlogContext';
 
 function BlogScreen(props) {
   const {navigation} = props;
   const [blogData, setBlogData] = useState({});
   const [loading, setLoading] = useState(true);
-  const {blogs} = useContext(BlogsContext);
+  const {state} = useContext(Context);
 
   const id = navigation.getParam('id');
 
   useEffect(() => {
-    const details = blogs.find(v => v.id === id);
+    const details = state.find(v => v.id === id);
     setBlogData(details);
     setLoading(false)
   }, []);
